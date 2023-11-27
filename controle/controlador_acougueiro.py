@@ -23,13 +23,11 @@ class ControladorAcougueiro:
             if len(self.__acougueiro_dao.get_all()) != 0:
                 for acougueiro in self.__acougueiro_dao.get_all():
                     dados_acougueiro.append({"nome": acougueiro.nome, "cpf": acougueiro.cpf})
-                self.__tela_acougueiro.lista_acougueiro(dados_acougueiro)
+                self.__tela_acougueiro.lista_acoug(dados_acougueiro)
             else:
                 raise ListaVaziaException
         except ListaVaziaException as e:
-            self.__tela_acougueiro.mostra_mensagem('\n')
             self.__tela_acougueiro.mostra_mensagem(e)
-            self.__tela_acougueiro.mostra_mensagem('\n')
 
     def contratar(self):
         dados = self.__tela_acougueiro.pega_dados()

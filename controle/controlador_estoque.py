@@ -23,7 +23,7 @@ class ControladorEstoque:
             if len(self.__estoque_dao.get_all()) != 0:
                 for carne in self.__estoque_dao.get_all():
                     dados_estoque.append({"cod": carne.cod, "corte": carne.corte,
-                                                      "qtd": carne.qtd})
+                                          "qtd": carne.qtd})
                 return self.__tela_estoque.lista_carnes(dados_estoque)
 
             else:
@@ -42,9 +42,7 @@ class ControladorEstoque:
             else:
                 raise CorteJaExisteException
         except CorteJaExisteException as e:
-            self.__tela_estoque.mostra_mensagem('\n')
             self.__tela_estoque.mostra_mensagem(e)
-            self.__tela_estoque.mostra_mensagem('\n')
 
     def alterar(self):
         self.lista_carnes()

@@ -25,9 +25,7 @@ class ControladorBoi:
             else:
                 raise BoiException
         except BoiException as e:
-            self.__tela_boi.mostra_mensagem('\n')
             self.__tela_boi.mostra_mensagem(e)
-            self.__tela_boi.mostra_mensagem('\n')
 
     def lista_partes(self):
         self.__tela_boi.mostra_mensagem('As partes do boi são: dianteiro e traseiro')

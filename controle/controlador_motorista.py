@@ -28,9 +28,7 @@ class ControladorMotorista:
             else:
                 raise ListaVaziaException
         except ListaVaziaException as e:
-            self.__tela_motorista.mostra_mensagem('\n')
             self.__tela_motorista.mostra_mensagem(e)
-            self.__tela_motorista.mostra_mensagem('\n')
 
     def contratar(self):
         dados = self.__tela_motorista.pega_dados()
@@ -44,9 +42,7 @@ class ControladorMotorista:
             else:
                 raise MotoristaJaExisteException
         except MotoristaJaExisteException as e:
-            self.__tela_motorista.mostra_mensagem('\n')
             self.__tela_motorista.mostra_mensagem(e)
-            self.__tela_motorista.mostra_mensagem('\n')
 
     def alterar(self):
         self.lista_motoristas()
@@ -60,9 +56,7 @@ class ControladorMotorista:
             self.__motorista_dao.update(motora)
             self.lista_motoristas()
         else:
-            self.__tela_motorista.mostra_mensagem('\n')
             self.__tela_motorista.mostra_mensagem('Motorista não está no quadro de funcionários')
-            self.__tela_motorista.mostra_mensagem('\n')
 
     def demitir(self):
         self.lista_motoristas()

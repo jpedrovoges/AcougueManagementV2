@@ -22,7 +22,7 @@ class ControladorEntrega:
         try:
             if len(self.__entrega_dao.get_all()) != 0:
                 for ent in self.__entrega_dao.get_all():
-                    dados_entregas.append({'cod': ent.cod, 'cliente': ent.cliente.nome, 'carne': ent.estoque.corte})
+                    dados_entregas.append({'cod': ent.cod, 'cliente': ent.cliente.nome})
                 return self.__tela_entrega.mostra_entregas(dados_entregas)
             else:
                 raise EntregaNaoExisteException
@@ -31,14 +31,15 @@ class ControladorEntrega:
 
     def cria_entrega(self):
         self.__controlador_sistema.controlador_estoque.lista_carnes()
+        self.__controlador_sistema.controlador_cliente.lista_clientes()
         dados_entrega = self.__tela_entrega.pega_dados()
-        entreg = self.entrega_por_cod(dados_entrega["codigo"])
+        entreg = self.entrega_por_cod(dados_entrega["cod"])
         try:
             cliente = self.__controlador_sistema.controlador_cliente.pega_cliente_cpf(dados_entrega["cpf"])
             if cliente is not None:
                 if entreg is None:
-                    carne = self.__controlador_sistema.controlador_estoque.pega_cod(dados_entrega['cod'])
-                    entrega = Entrega(cliente, dados_entrega["codigo"], carne)
+                    carne = self.__controlador_sistema.controlador_estoque.pega_cod(dados_entrega["cod"])
+                    entrega = Entrega(cliente, dados_entrega["cod"], carne)
                     self.__entrega_dao.add(entrega)
                     self.__tela_entrega.mostra_mensagem("Sua entrega foi incluida!")
                 else:
@@ -47,9 +48,7 @@ class ControladorEntrega:
                 self.__tela_entrega.mostra_mensagem('Cliente não cadastrado, escolha um já existente')
                 self.cria_entrega()
         except EntregaJaExisteException as e:
-            self.__tela_entrega.mostra_mensagem('\n')
             self.__tela_entrega.mostra_mensagem(e)
-            self.__tela_entrega.mostra_mensagem('\n')
             self.cria_entrega()
 
     def alterar_entrega(self):

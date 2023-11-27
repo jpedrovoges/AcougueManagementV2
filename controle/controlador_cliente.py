@@ -23,13 +23,11 @@ class ControladorCliente:
             if len(self.__cliente_dao.get_all()) != 0:
                 for cliente in self.__cliente_dao.get_all():
                     dados_clientes.append({"nome": cliente.nome, "cpf": cliente.cpf})
-                return self.__tela_cliente.lista_cliente(dados_clientes)
+                return self.__tela_cliente.lista_clientes(dados_clientes)
             else:
                 raise ListaVaziaException
         except ListaVaziaException as e:
-            self.__tela_cliente.mostra_mensagem('\n')
             self.__tela_cliente.mostra_mensagem(e)
-            self.__tela_cliente.mostra_mensagem('\n')
 
     def cadastrar(self):
         dados = self.__tela_cliente.pega_dados()
@@ -42,9 +40,7 @@ class ControladorCliente:
             else:
                 raise ClienteJaExisteException
         except ClienteJaExisteException as e:
-            self.__tela_cliente.mostra_mensagem('\n')
             self.__tela_cliente.mostra_mensagem(e)
-            self.__tela_cliente.mostra_mensagem('\n')
 
     def alterar(self):
         self.lista_clientes()
